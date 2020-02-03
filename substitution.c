@@ -13,7 +13,7 @@
 // Print cipher
 
 // Encipher protoype
-string encipher(string plaintext);
+string encipher(string plaintext, string key);
 
 // Main function (number of command line arguments, string of command line arguments)
 int main(int argc, string argv[])
@@ -82,20 +82,25 @@ int main(int argc, string argv[])
     string plainText = get_string("plain text: ");
 
     // Enchipher
-    printf("cipher text: %s\n", encipher(plainText));
+    printf("cipher text: %s\n", encipher(plainText, key));
 }
 
+
+
 // Encipher Function
-string encipher(string plainText)
+string encipher(string plainText, string key)
 {
-    int i;
-    int j;
-    bool found;
-    char *eText;
-    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVQXYZ";
 
     // Allocate memory for the size of the provided plainText
+    int plainTextLength = strlen(plainText);
+    char *eText;
     eText = (char *)malloc(plainTextLength);
+
+    long keyLength = strlen(key);
+    bool found;
+    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVQXYZ";
+    int i;
+    int j;
 
     // Loop over all characters of plainText
     for (i = 0; i < plainTextLength; i++)
@@ -104,7 +109,7 @@ string encipher(string plainText)
         found = 0;
         for (j = 0; j < keyLength; j++)
         {
-            // Mapped uppercase or lower case letter
+            // Mapped uppercase or lower case letter (checking ASCII)
             if(plainText[i] == alphabet[j] || (int)plainText[i] == (int)alphabet[j] + 32)
             {
                 // Mapped lowercase letter
@@ -128,6 +133,5 @@ string encipher(string plainText)
         }
 
     }
-    printf("%s\n", eText);
-    return(encipherText);
+    return(eText);
 }
