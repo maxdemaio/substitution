@@ -2,8 +2,9 @@
 Encrypt a message using a simple substitution cipher
 
 ## How it works:
+Picture the letters of the alphabet in one single string. Now imagine jumbling those letters up, this is your "key." Using the key you can encrypt a plaintext message.
 
-Using the key `DWUSXNPQKEGCZFJBTLYROHIAVM`, which is portrayed in the table below, would encypt the plaintext `The quick brown fox jumps over the lazy dog.` to `Rqx tokug wljif nja eozby jhxl rqx cdmv sjp.`
+For example, using the key `DWUSXNPQKEGCZFJBTLYROHIAVM`, which is portrayed in the table below, would encypt the plaintext `The quick brown fox jumps over the lazy dog.` to `Rqx tokug wljif nja eozby jhxl rqx cdmv sjp.`
 
 ### Example substitution schema:
 
