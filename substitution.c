@@ -9,7 +9,6 @@
 // Encipher protoype
 string encipher(string plaintext, string key);
 
-// Main
 int main(int argc, string argv[])
 {
     // Check number of command line arguments
@@ -19,6 +18,7 @@ int main(int argc, string argv[])
         return (1);
     }
 
+    // Initialize variables
     string key = argv[1];
     long keyLength = strlen(key);
     int i;
@@ -29,15 +29,17 @@ int main(int argc, string argv[])
     {
         if(key[i] >= 'a' && key[i] <= 'z')
         {
+            // ASCII conversion
             key[i] = key[i] -32;
         }
     }
 
+    // Print some statistics
     printf("Key is: %s\n", key);
     printf("Number Of Arguments Passed: %d\n", argc);
     printf("Length of key is: %lu\n", keyLength);
 
-    // Validate the provided key
+    // *** Validate the provided key ***
 
     // Check key length
     if (keyLength != 26)
@@ -47,7 +49,7 @@ int main(int argc, string argv[])
     }
     printf("Key is valid length!\n");
 
-    // Check for non-aplhabetic characters
+    // Check for non-alphabetic characters
     for (i = 0; i < keyLength; i++)
     {
         // If character is alphabetic, continue
@@ -84,30 +86,31 @@ int main(int argc, string argv[])
     // Get plaintext input from user
     string plainText = get_string("plain text: ");
 
-    // Enchipher
+    // Enchipher the provided plaintext
     printf("ciphertext: %s\n", encipher(plainText, key));
 }
 
 
-// Encipher Function
+// Encipher function
 string encipher(string plainText, string key)
 {
 
-    // Allocate memory for the size of the provided plainText
+    // Allocate memory for the size of the provided plaintext
     int plainTextLength = strlen(plainText);
     char *eText;
     eText = (char *)malloc(plainTextLength);
 
+    // Initialize variables
     long keyLength = strlen(key);
     bool found;
     string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     int i;
     int j;
 
-    // Loop over all characters of plainText
+    // Loop over all characters of plaintext
     for (i = 0; i < plainTextLength; i++)
     {
-        // Set found default to False
+        // Set found default to False (used to preserve non-alphabetical chars)
         found = 0;
         // Loop over the alphabet to see where plaintext[i] is located, then map that char to the key
         for (j = 0; j < keyLength; j++)
