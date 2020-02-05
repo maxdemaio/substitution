@@ -5,37 +5,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// TO DO
-// Get key (command line argument pass into main, case insensitive, 26 long, alphabetic characters)
-// Validate key
-// Get plaintext
-// Encipher
-// Print cipher
 
 // Encipher protoype
 string encipher(string plaintext, string key);
 
-// Main function (number of command line arguments, string of command line arguments)
+// Main
 int main(int argc, string argv[])
 {
+    // Check number of command line arguments
+    if(argc != 2)
+    {
+        printf("Usage: ./substitution key\n");
+        return (1);
+    }
+
     string key = argv[1];
     long keyLength = strlen(key);
     int i;
     int j;
 
+    // Convert key to uppercase
+    for (i = 0; i < keyLength; i++)
+    {
+        if(key[i] >= 'a' && key[i] <= 'z')
+        {
+            key[i] = key[i] -32;
+        }
+    }
+
     printf("Key is: %s\n", key);
     printf("Number Of Arguments Passed: %d\n", argc);
     printf("Length of key is: %lu\n", keyLength);
 
-
-// Validate the provided key
-
-    // Check command line arguments
-    if (argc != 2)
-    {
-        printf("Usage: ./substitution key\n");
-        return (1);
-    }
+    // Validate the provided key
 
     // Check key length
     if (keyLength != 26)
@@ -53,7 +55,7 @@ int main(int argc, string argv[])
         {
             continue;
         }
-        // Character error
+        // Character error encountered
         else
         {
             printf("Key contains non-valid characters!\n");
@@ -63,12 +65,13 @@ int main(int argc, string argv[])
     printf("Characters are valid!\n");
 
     // Check for repeated characters (case insensitive)
-    for(i = 0; i < keyLength; i++) // Iterate over each char in key
+    for (i = 0; i < keyLength; i++) // Iterate over each char in key
     {
         char letter = key[i];
        // Iterate over each char after key[i]
         for(j = i+ 1; j < keyLength + 1; j++)
         {
+            // Duplicate encountered
             if ( key[i] == key[j])
             {
                 printf("Key must not contain repeated characters.\n");
@@ -82,9 +85,8 @@ int main(int argc, string argv[])
     string plainText = get_string("plain text: ");
 
     // Enchipher
-    printf("cipher text: %s\n", encipher(plainText, key));
+    printf("ciphertext: %s\n", encipher(plainText, key));
 }
-
 
 
 // Encipher Function
@@ -98,7 +100,7 @@ string encipher(string plainText, string key)
 
     long keyLength = strlen(key);
     bool found;
-    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVQXYZ";
+    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     int i;
     int j;
 
@@ -107,31 +109,33 @@ string encipher(string plainText, string key)
     {
         // Set found default to False
         found = 0;
+        // Loop over the alphabet to see where plaintext[i] is located, then map that char to the key
         for (j = 0; j < keyLength; j++)
         {
             // Mapped uppercase or lower case letter (checking ASCII)
-            if(plainText[i] == alphabet[j] || (int)plainText[i] == (int)alphabet[j] + 32)
+            if (plainText[i] == alphabet[j] || (int)plainText[i] == (int)alphabet[j] + 32)
             {
                 // Mapped lowercase letter
-                if(islower(plainText[i]))
+                if (islower(plainText[i]))
                 {
                     eText[i] = tolower(key[j]);
+                    found = 1; // found a match
+                    break;
                 }
                 // Mapped uppercase letter
                 else
                 {
                     eText[i] = key[j];
+                    found = 1;
+                    break;
                 }
-                // found a match
-                found = 1;
             }
         }
         // if not alphabetic char, still print it
-        if(found == 0)
+        if (found == 0)
         {
             eText[i] = plainText[i];
         }
-
     }
-    return(eText);
+    return (eText);
 }
