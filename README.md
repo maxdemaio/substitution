@@ -24,3 +24,97 @@ clang -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wno-unused-pa
 plain text: The quick brown fox jumps over the lazy dog.
 ciphertext: Rqx tokug wljif nja eozby jhxl rqx cdmv sjp.
 ```
+### Quick overview of how substitution.c works (without diving into the helper functions):
+```c
+#include <stdio.h>
+#include <string.h>
+#include <cs50.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+// Encipher protoype
+string encipher(string plaintext, string key);
+
+int main(int argc, string argv[])
+{
+    // Check number of command line arguments
+    if(argc != 2)
+    {
+        printf("Usage: ./substitution key\n");
+        return (1);
+    }
+
+    // Initialize variables
+    string key = argv[1];
+    long keyLength = strlen(key);
+    int i;
+    int j;
+
+    // Convert key to uppercase
+    for (i = 0; i < keyLength; i++)
+    {
+        if(key[i] >= 'a' && key[i] <= 'z')
+        {
+            // ASCII conversion
+            key[i] = key[i] -32;
+        }
+    }
+
+    // Print some statistics
+    printf("Key is: %s\n", key);
+    printf("Number Of Arguments Passed: %d\n", argc);
+    printf("Length of key is: %lu\n", keyLength);
+
+    // *** Validate the provided key ***
+
+    // Check key length
+    if (keyLength != 26)
+    {
+        printf("Key must contain 26 characters.\n");
+        return (1);
+    }
+    printf("Key is valid length!\n");
+
+    // Check for non-alphabetic characters
+    for (i = 0; i < keyLength; i++)
+    {
+        // If character is alphabetic, continue
+        if (isalpha(key[i]) != 0)
+        {
+            continue;
+        }
+        // Character error encountered
+        else
+        {
+            printf("Key contains non-valid characters!\n");
+            return (1);
+        }
+    }
+    printf("Characters are valid!\n");
+
+    // Check for repeated characters (case insensitive)
+    for (i = 0; i < keyLength; i++) // Iterate over each char in key
+    {
+        char letter = key[i];
+       // Iterate over each char after key[i]
+        for(j = i+ 1; j < keyLength + 1; j++)
+        {
+            // Duplicate encountered
+            if ( key[i] == key[j])
+            {
+                printf("Key must not contain repeated characters.\n");
+                return (1);
+            }
+        }
+    }
+    printf("No duplicate characters in key!\n");
+
+    // Get plaintext input from user
+    string plainText = get_string("plain text: ");
+
+    // Enchipher the provided plaintext
+    printf("ciphertext: %s\n", encipher(plainText, key));
+}
+```
