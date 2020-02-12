@@ -34,7 +34,7 @@ ciphertext: Rqx tokug wljif nja eozby jhxl rqx cdmv sjp.
 #include <stdlib.h>
 
 
-// Encipher protoype
+// Encipher prototype
 string encipher(string plaintext, string key);
 
 int main(int argc, string argv[])
