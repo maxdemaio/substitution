@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 
-// Encipher protoype
+// Encipher prototype
 string encipher(string plaintext, string key);
 
 int main(int argc, string argv[])
