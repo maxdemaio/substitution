@@ -23,8 +23,6 @@ int main(int argc, string argv[])
     long keyLength = strlen(key);
     int i;
     int j;
-    
-    // some example changes here
 
     // Convert key to uppercase
     for (i = 0; i < keyLength; i++)
@@ -136,7 +134,7 @@ string encipher(string plainText, string key)
                 }
             }
         }
-        // if not alphabetic char, still print it
+        // If not alphabetic char, still print it
         if (found == 0)
         {
             eText[i] = plainText[i];
