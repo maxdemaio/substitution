@@ -23,6 +23,8 @@ int main(int argc, string argv[])
     long keyLength = strlen(key);
     int i;
     int j;
+    
+    // some example changes here
 
     // Convert key to uppercase
     for (i = 0; i < keyLength; i++)
